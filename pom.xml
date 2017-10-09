@@ -35,30 +35,18 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <storm.version>1.1.1</storm.version>
+        <provided.scope>provided</provided.scope>
     </properties>
 
-    <distributionManagement>
-        <repository>
-            <id>clojars</id>
-            <name>Clojars repository</name>
-            <url>https://clojars.org/repo</url>
-        </repository>
-    </distributionManagement>
-
-    <repositories>
-        <repository>
-            <id>clojars</id>
-            <url>http://clojars.org/repo/</url>
-        </repository>
-    </repositories>
 
     <dependencies>
 
         <dependency>
-            <groupId>storm</groupId>
-            <artifactId>storm</artifactId>
-            <version>0.9.0-rc2</version>
-            <scope>provided</scope>
+            <groupId>org.apache.storm</groupId>
+            <artifactId>storm-core</artifactId>
+            <version>${storm.version}</version>
+            <scope>${provided.scope}</scope>
         </dependency>
 
         <dependency>
@@ -67,18 +55,40 @@
             <version>2.1.0</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>it.ozimov</groupId>
+            <artifactId>embedded-redis</artifactId>
+            <version>0.7.0</version>
+        </dependency>
+        <!--
         <dependency>
             <groupId>redis.embedded</groupId>
             <artifactId>embedded-redis</artifactId>
-            <version>0.1</version>
+            <version>0.5</version>
+            <scope>test</scope>
+        </dependency>-->
+
+        <!--
+        <dependency>
+            <groupId>com.github.kstyrc</groupId>
+            <artifactId>embedded-redis</artifactId>
+            <version>0.6</version>
             <scope>test</scope>
         </dependency>
+        -->
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.5</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>20.0</version>
         </dependency>
 
     </dependencies>
@@ -137,6 +147,18 @@
     </build>
 
     <profiles>
+
+        <!--
+        Hack to make intellij behave.
+        If you use intellij, enable this profile in your IDE.
+        It should make life easier.
+    -->
+        <profile>
+            <id>intellij</id>
+            <properties>
+                <provided.scope>compile</provided.scope>
+            </properties>
+        </profile>
         <profile>
             <id>release-sign-artifacts</id>
             <activation>
